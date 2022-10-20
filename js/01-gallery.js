@@ -23,7 +23,54 @@ class Gallery {
     }
 
     const imgSrc = e.target.dataset.source;
-    this.initLightbox(imgSrc);
+    // const inst = this.getLightbox(imgSrc);
+    // initLightbox(inst);
+
+    const lightboxImg = this.createLightboxImg(imgSrc);
+    const instance = basicLightbox.create(lightboxImg);
+    instance.show();
+
+    const escFun = this.onEscape.bind(this, instance);
+    window.addEventListener("keydown", escFun);
+    // window.removeEventListener("keydown", escFun);
+    // window.addEventListener("keydown", (e) => {
+    //   if (e.code !== "Escape") {
+    //     return;
+    //   }
+    //   console.log(e.code);
+    // });
+  }
+
+  createLightboxImg(srcLink) {
+    return `<img src="${srcLink}" width="800" height="600">`;
+  }
+
+  // getLightbox(srcLink) {
+  //   const lightboxImg = this.createLightboxImg(srcLink);
+  //   const instance = basicLightbox.create(lightboxImg);
+  //   return instance;
+  // }
+
+  // initLightbox(instance) {
+  //   instance.show();
+  // }
+
+  // initLightbox(srcLink) {
+  //   const lightboxImg = this.createLightboxImg(srcLink);
+  //   const instance = basicLightbox.create(lightboxImg);
+  //   instance.show();
+  //   return instance;
+  // }
+
+  onEscape(instance, e) {
+    if (e.code !== "Escape") {
+      return;
+    }
+    // window.removeEventListener("keydown", this.onEscape.bind(instance, e));
+    instance.close();
+    // console.log(this);
+    console.log("e ", e);
+    console.log("x ", instance);
   }
 
   createGalleryMarkup(galleryContainerRef, galleryItems) {
@@ -54,16 +101,6 @@ class Gallery {
         />
       </a>
     `;
-  }
-
-  createLightboxImg(srcLink) {
-    return `<img src="${srcLink}" width="800" height="600">`;
-  }
-
-  initLightbox(srcLink) {
-    const lightboxImg = this.createLightboxImg(srcLink);
-    const instance = basicLightbox.create(lightboxImg);
-    instance.show();
   }
 }
 
