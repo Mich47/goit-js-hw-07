@@ -22,25 +22,31 @@ class Gallery {
       return;
     }
 
-    const imgSrc = e.target.dataset.source;
-    const lightboxImg = this.createLightboxImg(imgSrc);
-    const instance = basicLightbox.create(lightboxImg, {
-      onClose: () => {
-        window.removeEventListener("keydown", onEscape);
-      },
+    var gallery = new SimpleLightbox(".gallery a", {
+      captionsData: "alt", //string	get the caption from given attribute
+      captionDelay: 250,
     });
+    gallery.open();
 
-    instance.show();
+    // const imgSrc = e.target.dataset.source;
+    // const lightboxImg = this.createLightboxImg(imgSrc);
+    // const instance = basicLightbox.create(lightboxImg, {
+    //   onClose: () => {
+    //     window.removeEventListener("keydown", onEscape);
+    //   },
+    // });
 
-    const onEscape = (e) => {
-      if (e.code !== "Escape") {
-        return;
-      }
-      instance.close();
-      window.removeEventListener("keydown", onEscape);
-    };
+    // instance.show();
 
-    window.addEventListener("keydown", onEscape);
+    // const onEscape = (e) => {
+    //   if (e.code !== "Escape") {
+    //     return;
+    //   }
+    //   instance.close();
+    //   window.removeEventListener("keydown", onEscape);
+    // };
+
+    // window.addEventListener("keydown", onEscape);
   }
 
   createLightboxImg(srcLink) {
@@ -55,22 +61,12 @@ class Gallery {
     galleryContainerRef.insertAdjacentHTML("afterbegin", galleryItemsMarkup);
   }
 
-  createGalleryItem(galleryItem) {
-    const galleryLink = this.createGalleryLink(galleryItem);
+  createGalleryItem({ preview, original, description }) {
     return `
-      <div class="gallery__item">
-        ${galleryLink}
-      </div>
-    `;
-  }
-
-  createGalleryLink({ preview, original, description }) {
-    return `
-      <a class="gallery__link" href="${original}">
+      <a class="gallery__item" href="${original}">
         <img
           class="gallery__image"
           src="${preview}"
-          data-source="${original}"
           alt="${description}"
         />
       </a>
