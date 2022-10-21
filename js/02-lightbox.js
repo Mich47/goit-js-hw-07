@@ -23,34 +23,15 @@ class Gallery {
     }
 
     var gallery = new SimpleLightbox(".gallery a", {
-      captionsData: "alt", //string	get the caption from given attribute
+      captionsData: "alt",
       captionDelay: 250,
     });
+
     gallery.open();
 
-    // const imgSrc = e.target.dataset.source;
-    // const lightboxImg = this.createLightboxImg(imgSrc);
-    // const instance = basicLightbox.create(lightboxImg, {
-    //   onClose: () => {
-    //     window.removeEventListener("keydown", onEscape);
-    //   },
-    // });
-
-    // instance.show();
-
-    // const onEscape = (e) => {
-    //   if (e.code !== "Escape") {
-    //     return;
-    //   }
-    //   instance.close();
-    //   window.removeEventListener("keydown", onEscape);
-    // };
-
-    // window.addEventListener("keydown", onEscape);
-  }
-
-  createLightboxImg(srcLink) {
-    return `<img src="${srcLink}" width="800" height="600">`;
+    gallery.on("closed.simplelightbox", function () {
+      gallery.destroy();
+    });
   }
 
   createGalleryMarkup(galleryContainerRef, galleryItems) {
