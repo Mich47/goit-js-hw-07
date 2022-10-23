@@ -16,9 +16,9 @@ class Gallery {
     elem.addEventListener("click", this.onGalleryImageClick.bind(this));
   }
 
-  onGalleryImageClick(e) {
-    e.preventDefault();
-    if (!e.target.classList.contains("gallery__image")) {
+  onGalleryImageClick(event) {
+    event.preventDefault();
+    if (!event.target.classList.contains("gallery__image")) {
       return;
     }
 

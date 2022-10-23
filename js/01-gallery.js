@@ -16,13 +16,13 @@ class Gallery {
     elem.addEventListener("click", this.onGalleryImageClick.bind(this));
   }
 
-  onGalleryImageClick(e) {
-    e.preventDefault();
-    if (!e.target.classList.contains("gallery__image")) {
+  onGalleryImageClick(event) {
+    event.preventDefault();
+    if (!event.target.classList.contains("gallery__image")) {
       return;
     }
 
-    const imgSrc = e.target.dataset.source;
+    const imgSrc = event.target.dataset.source;
     const lightboxImg = this.createLightboxImg(imgSrc);
     const instance = basicLightbox.create(lightboxImg, {
       onClose: () => {
@@ -32,8 +32,8 @@ class Gallery {
 
     instance.show();
 
-    const onEscape = (e) => {
-      if (e.code !== "Escape") {
+    const onEscape = (event) => {
+      if (event.code !== "Escape") {
         return;
       }
       instance.close();
